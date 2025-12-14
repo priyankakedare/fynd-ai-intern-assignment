@@ -1,0 +1,186 @@
+Fynd AI Intern – Take Home Assessment Report
+Overview
+
+This project focuses on using Large Language Models (LLMs) for two tasks:
+
+Task 1: Predicting Yelp review star ratings (1–5) using prompt engineering
+
+Task 2: Building a simple AI-powered feedback system with User and Admin dashboards
+
+The goal of the assignment is to understand how prompt design affects LLM performance and how LLMs can be used in real-world feedback systems.
+
+Task 1: Rating Prediction via Prompt Engineering
+Objective
+
+The objective of Task 1 was to use an LLM to predict star ratings (1–5) for Yelp reviews and analyze how different prompting strategies impact performance.
+
+No machine learning model was trained. Instead, the LLM was treated as a classifier through carefully designed prompts.
+
+Dataset
+
+Yelp Reviews dataset from Kaggle
+
+Columns used:
+
+text → Review text
+
+stars → Actual star rating
+
+A random sample of 200 reviews was used for efficiency.
+
+Approach
+
+Three different prompting strategies were designed and evaluated:
+
+Prompt V1: Basic instruction-based prompt
+
+Prompt V2: Strict and structured prompt with clear rating rules
+
+Prompt V3: Few-shot prompt with examples
+
+For each prompt:
+
+The review text was sent to the LLM
+
+The LLM returned a predicted star rating in JSON format
+
+Predictions were compared with actual ratings
+
+Prompt Versions
+Prompt V1 – Basic Prompt
+
+This prompt simply asked the LLM to read a review and predict a rating.
+
+Reasoning:
+Used as a baseline to understand how the LLM performs with minimal guidance.
+
+Prompt V2 – Strict Prompt
+
+This prompt:
+
+Assigned the LLM a clear role (expert reviewer)
+
+Asked it to be conservative and realistic
+
+Enforced strict JSON-only output
+
+Reasoning:
+Adding structure and rules was expected to improve accuracy and consistency.
+
+Prompt V3 – Few-Shot Prompt
+
+This prompt included example reviews with correct outputs before asking the model to predict.
+
+Reasoning:
+Few-shot prompting often helps LLMs understand the task better through examples.
+
+Evaluation Metrics
+
+Each prompt was evaluated using:
+
+Accuracy: Percentage of correct predictions
+
+JSON Validity Rate: Percentage of responses that followed valid JSON format
+
+Results
+Prompt Version	Accuracy	JSON Validity
+Prompt V1 (Basic)	66.5%	100%
+Prompt V2 (Strict)	69%	100%
+Prompt V3 (Few-shot)	64%	100%
+Observations
+
+Prompt V2 achieved the highest accuracy
+
+All prompts maintained 100% JSON validity
+
+Prompt V3 performed slightly worse, likely due to example bias
+
+Adding strict instructions improved performance more than adding examples
+
+Conclusion (Task 1)
+
+Prompt engineering significantly impacts LLM performance.
+Among the three approaches, Prompt V2 provided the best balance between accuracy and reliability.
+
+Task 2: Two-Dashboard AI Feedback System
+Objective
+
+The objective of Task 2 was to build a simple web-based feedback system using LLMs with:
+
+A User Dashboard for submitting reviews
+
+An Admin Dashboard for analyzing feedback
+
+Both dashboards use the same data source and are deployed online.
+
+System Design
+
+The application was built using:
+
+Streamlit for UI
+
+CSV file as shared storage
+
+LLM API for AI-generated responses, summaries, and recommendations
+
+User Dashboard
+
+The User Dashboard allows users to:
+
+Select a star rating
+
+Write a short review
+
+Submit feedback
+
+On submission:
+
+The LLM generates a polite response
+
+Data is stored in a shared CSV file
+
+Admin Dashboard
+
+The Admin Dashboard displays:
+
+User rating
+
+User review
+
+AI-generated summary
+
+AI-suggested recommended action
+
+This helps administrators quickly understand customer sentiment and decide next steps.
+
+LLM Usage
+
+LLMs were used for:
+
+Generating user-facing responses
+
+Summarizing reviews
+
+Suggesting recommended actions for admins
+
+Deployment
+
+Both dashboards were deployed as web applications and made accessible via public URLs.
+This ensures real-world usability and meets the assignment requirements.
+
+Key Learnings
+
+Prompt structure directly affects LLM accuracy
+
+Strict instructions improve consistency
+
+Few-shot prompting is not always better
+
+LLMs can be effectively used without model training
+
+Simple architectures can still solve real-world problems
+
+Final Conclusion
+
+This project demonstrates the practical use of LLMs for classification and feedback analysis.
+Through prompt engineering and system design, accurate and reliable AI-driven solutions can be built efficiently.
