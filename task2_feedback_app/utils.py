@@ -10,7 +10,10 @@ llm = ChatGroq(
     model_name="llama-3.1-8b-instant"
 )
 
-DATA_FILE = "data.csv"
+# ✅ Absolute path for data.csv
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_FILE = os.path.join(BASE_DIR, "data.csv")
+
 
 def generate_user_response(review, rating):
     prompt = f"""
@@ -42,7 +45,14 @@ def recommend_action(review):
 
 
 def save_feedback(rating, review, ai_response, summary, action):
-    df = pd.read_csv(DATA_FILE)
+    # ✅ Create file if it doesn't exist
+    if not os.path.exists(DATA_FILE):
+        df = pd.DataFrame(
+            columns=["rating", "review", "ai_response", "summary", "recommended_action"]
+        )
+    else:
+        df = pd.read_csv(DATA_FILE)
+
     new_row = {
         "rating": rating,
         "review": review,
@@ -50,5 +60,6 @@ def save_feedback(rating, review, ai_response, summary, action):
         "summary": summary,
         "recommended_action": action
     }
+
     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
     df.to_csv(DATA_FILE, index=False)
