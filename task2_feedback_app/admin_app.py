@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import os
+
 
 st.set_page_config(
     page_title="Admin Dashboard",
@@ -28,8 +30,15 @@ st.markdown("<p class='subtitle'>Live customer feedback analytics</p>", unsafe_a
 
 st.divider()
 
-df = pd.read_csv("data.csv")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_FILE = os.path.join(BASE_DIR, "data.csv")
 
+if os.path.exists(DATA_FILE):
+    df = pd.read_csv(DATA_FILE)
+else:
+    df = pd.DataFrame(
+        columns=["rating", "review", "ai_response", "summary", "recommended_action"]
+    )
 if df.empty:
     st.warning("No feedback available yet.")
     st.stop()
